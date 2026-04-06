@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>📻 Expedição Morse Araruama</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #1e3a5f; 
+            --accent: #8b5cf6; 
+            --success: #10b981; 
+            --neon: #00ff41; 
+            --electric: #4deeea;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: #e2e8f0; 
+            margin: 0; padding: 10px; 
+            display: flex; justify-content: center; 
+            min-height: 100vh;
+        }
+
+        .container { 
+            width: 100%; max-width: 500px; 
+            background: white; padding: 20px; 
+            border-radius: 28px; border: 4px solid var(--primary); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            text-align: center;
+            display: flex; flex-direction: column;
+            transition: all 0.3s;
+        }
+
+        /* Efeito de Eletricidade Profissional */
+        @keyframes electric-glow {
+            0% { box-shadow: 0 0 15px var(--electric); border-color: var(--electric); }
+            50% { box-shadow: 0 0 40px var(--electric); transform: scale(1.01); }
+            100% { box-shadow: 0 0 15px var(--electric); border-color: var(--primary); }
+        }
+        .success-flash { animation: electric-glow 0.4s ease-in-out 3; background-color: #f0fdff; }
+
+        h1 { font-size: 1.3rem; color: var(--primary); margin: 0 0 10px 0; font-weight: 900; }
+
+        .display-morse { 
+            background: #111; color: var(--neon); 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 1.4rem; padding: 18px; 
+            border-radius: 18px; margin: 10px 0; 
+            min-height: 80px;
+            display: flex; justify-content: center; align-items: center; 
+            flex-wrap: wrap; word-break: break-all;
+            line-height: 1.4;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        input { 
+            width: 100%; padding: 14px; font-size: 1.5rem; 
+            border: 3px solid #cbd5e1; border-radius: 14px; 
+            text-transform: uppercase; text-align: center; 
+            background: #f8fafc; margin-bottom: 15px;
+            font-weight: 900; color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        /* Teclado */
+        .virtual-keyboard { 
+            display: grid; 
+            grid-template-columns: repeat(7, 1fr); 
+            gap: 6px; 
+            padding: 10px; background: #f1f5f9; border-radius: 18px; 
+        }
+
+        .key { 
+            background: white; border: none;
+            padding: 14px 0; border-radius: 10px; 
+            font-weight: 900; font-size: 1.1rem;
+            color: var(--primary);
+            cursor: pointer; touch-action: manipulation;
+            box-shadow: 0 4px 0 #cbd5e1;
+            transition: all 0.1s;
+        }
+        .key:active { transform: translateY(3px); box-shadow: 0 1px 0 #cbd5e1; background: #f8fafc; }
+
+        /* Botões Especiais Profissionais */
+        .action-row {
+            display: flex; gap: 10px; margin-top: 12px;
+        }
+
+        .btn-special {
+            flex: 1; border: none; padding: 12px; border-radius: 12px;
+            font-weight: 800; font-size: 0.9rem; color: white;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            gap: 8px; transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-backspace { 
+            background-color: var(--warning);
+            box-shadow: 0 4px 0 #b45309;
+        }
+        .btn-backspace:active { transform: translateY(3px); box-shadow: 0 1px 0 #b45309; }
+
+        .btn-clear { 
+            background-color: var(--danger);
+            box-shadow: 0 4px 0 #b91c1c;
+        }
+        .btn-clear:active { transform: translateY(3px); box-shadow: 0 1px 0 #b91c1c; }
+
+        .btn-check { 
+            background: var(--primary); color: white; border: none; 
+            padding: 18px; border-radius: 15px; font-weight: 900; 
+            width: 100%; font-size: 1.1rem; margin-top: 15px;
+            box-shadow: 0 5px 0 #0f172a; cursor: pointer;
+            text-transform: uppercase; transition: all 0.1s;
+        }
+        .btn-check:active { transform: translateY(3px); box-shadow: 0 2px 0 #0f172a; }
+
+        .legend { 
+            margin-top: 15px; display: grid; grid-template-columns: repeat(4, 1fr); 
+            gap: 4px; font-size: 0.7rem; background: #f8fafc; 
+            padding: 10px; border-radius: 14px; border: 1px solid #e2e8f0;
+        }
+        .legend div { background: white; padding: 4px; border-radius: 5px; border: 1px solid #eee; font-weight: bold; }
+
+        @media (max-width: 380px) {
+            .key { padding: 12px 0; font-size: 1rem; }
+            .btn-special { font-size: 0.75rem; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="gameContainer">
+    <div id="levelLabel" style="font-weight:900; color:var(--accent); font-size: 0.9rem; text-transform: uppercase;">Nível 1</div>
+    <h1>Expedição Morse Araruama</h1>
+    
+    <div id="morseDisplay" class="display-morse" onclick="playCurrentMorse(600)">...</div>
+    
+    <div id="hintBox" style="font-size:0.9rem; margin-bottom:12px; color:#475569; font-weight: 700;">💡 Dica...</div>
+    
+    <input type="text" id="userInput" readonly placeholder="SUA RESPOSTA">
+
+    <div class="virtual-keyboard" id="keyboard"></div>
+    
+    <!-- LINHA DE AÇÕES PROFISSIONAL -->
+    <div class="action-row">
+        <button class="btn-special btn-backspace" onclick="backspace()">
+            <span>⌫</span> APAGAR
+        </button>
+        <button class="btn-special btn-clear" onclick="clearInput()">
+            <span>🗑️</span> LIMPAR TUDO
+        </button>
+    </div>
+
+    <button class="btn-check" onclick="checkAnswer()">ENVIAR TRANSMISSÃO</button>
+    
+    <div id="feedback" style="margin-top:12px; min-height: 20px;"></div>
+    
+    <div class="legend" id="legendTable"></div>
+</div>
+
+<script>
+    const morseAlphabet = {
+        'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+        'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+        'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+        'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+        'Y': '-.--', 'Z': '--..'
+    };
+
+    const levels = [
+        { name: "História", situations: [{word: "SAL", hint: "Antiga riqueza de Araruama"}, {word: "FERRY", hint: "Barca da lagoa"}] },
+        { name: "Araruama", situations: [{word: "SOL", hint: "Forte na Praia do Gavião"}, {word: "VENTO", hint: "Perfeito para o Kite"}] }
+    ];
+
+    let currentLvl = 0; let currentSit = 0;
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playTone(duration, freq) {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration/1000);
+        osc.start();
+        setTimeout(() => osc.stop(), duration);
+    }
+
+    async function playCurrentMorse(freq) {
+        const word = levels[currentLvl].situations[currentSit].word;
+        for (let char of word) {
+            const code = morseAlphabet[char];
+            for (let symbol of code) {
+                playTone(symbol === '.' ? 100 : 300, freq);
+                await new Promise(r => setTimeout(r, 450));
+            }
+            await new Promise(r => setTimeout(r, 350));
+        }
+    }
+
+    const kbd = document.getElementById('keyboard');
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letra => {
+        const btn = document.createElement('button');
+        btn.className = 'key';
+        btn.innerText = letra;
+        btn.onclick = () => { playTone(60, 750); document.getElementById('userInput').value += letra; };
+        kbd.appendChild(btn);
+    });
+
+    function backspace() { 
+        playTone(50, 450); 
+        const v = document.getElementById('userInput').value; 
+        document.getElementById('userInput').value = v.substring(0, v.length - 1); 
+    }
+    
+    function clearInput() { 
+        playTone(70, 250); 
+        document.getElementById('userInput').value = ""; 
+    }
+
+    function initGame() {
+        const container = document.getElementById('gameContainer');
+        container.classList.remove('success-flash');
+        if (currentLvl >= levels.length) { 
+            container.innerHTML = "<h1 style='color:var(--success)'>🏆 MISSÃO CUMPRIDA!</h1><p>Você é um mestre telegrafista!</p>"; 
+            return; 
+        }
+        
+        const data = levels[currentLvl].situations[currentSit];
+        document.getElementById('levelLabel').innerText = `Fase ${currentLvl + 1}: ${levels[currentLvl].name}`;
+        document.getElementById('hintBox').innerText = `💡 ${data.hint}`;
+        document.getElementById('morseDisplay').innerText = data.word.split('').map(c => morseAlphabet[c]).join('   ');
+        document.getElementById('userInput').value = "";
+        document.getElementById('feedback').innerText = "";
+    }
+
+    function checkAnswer() {
+        const input = document.getElementById('userInput').value;
+        const correct = levels[currentLvl].situations[currentSit].word;
+        const feed = document.getElementById('feedback');
+        
+        if(input === correct) {
+            document.getElementById('gameContainer').classList.add('success-flash');
+            feed.innerHTML = "<b style='color:var(--success); font-size: 1.1rem;'>✅ SINAL RECEBIDO!</b>";
+            playCurrentMorse(950);
+            currentSit++;
+            if(currentSit >= levels[currentLvl].situations.length) { currentSit = 0; currentLvl++; }
+            setTimeout(initGame, 3000);
+        } else {
+            feed.innerHTML = "<b style='color:var(--danger)'>❌ CÓDIGO INVÁLIDO</b>";
+            playTone(500, 150);
+        }
+    }
+
+    const leg = document.getElementById('legendTable');
+    Object.keys(morseAlphabet).forEach(l => { 
+        leg.innerHTML += `<div>${l} ${morseAlphabet[l]}</div>`; 
+    });
+
+    initGame();
+</script>
+</body>
+</html>
