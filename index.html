@@ -21,144 +21,147 @@
         body { 
             font-family: 'Nunito', sans-serif; 
             background-color: #e2e8f0; 
-            margin: 0; padding: 10px; 
-            display: flex; justify-content: center; 
+            margin: 0; padding: 5px; /* Reduzi padding externo */
+            display: flex; justify-content: center; align-items: flex-start; /* Alinha no topo */
             min-height: 100vh;
         }
 
         .container { 
-            width: 100%; max-width: 500px; 
-            background: white; padding: 20px; 
-            border-radius: 28px; border: 4px solid var(--primary); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            width: 100%; max-width: 480px; /* Um pouco mais estreito */
+            background: white; padding: 12px; /* Padding interno menor */
+            border-radius: 20px; border: 3px solid var(--primary); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
             text-align: center;
             display: flex; flex-direction: column;
             transition: all 0.3s;
-            position: relative; /* Para o efeito de eletricidade */
+            position: relative;
         }
 
-        /* Efeito de Eletricidade Profissional */
+        /* Efeito de Eletricidade Compacto */
         @keyframes electric-glow {
-            0% { box-shadow: 0 0 15px var(--electric); border-color: var(--electric); }
-            50% { box-shadow: 0 0 40px var(--electric); transform: scale(1.01); }
-            100% { box-shadow: 0 0 15px var(--electric); border-color: var(--primary); }
+            0% { box-shadow: 0 0 10px var(--electric); border-color: var(--electric); }
+            50% { box-shadow: 0 0 25px var(--electric); transform: scale(1.01); }
+            100% { box-shadow: 0 0 10px var(--electric); border-color: var(--primary); }
         }
         .success-flash { animation: electric-glow 0.4s ease-in-out 3; background-color: #f0fdff; }
 
-        h1 { font-size: 1.3rem; color: var(--primary); margin: 0 0 10px 0; font-weight: 900; }
+        h1 { font-size: 1.1rem; color: var(--primary); margin: 0 0 5px 0; font-weight: 900; } /* Menor */
 
         .display-morse { 
             background: #111; color: var(--neon); 
             font-family: 'JetBrains Mono', monospace; 
-            font-size: 1.4rem; padding: 18px; 
-            border-radius: 18px; margin: 10px 0; 
-            min-height: 80px;
+            font-size: 1.2rem; padding: 12px; /* Padding menor */
+            border-radius: 12px; margin: 5px 0; 
+            min-height: 60px; /* Altura mínima menor */
             display: flex; justify-content: center; align-items: center; 
             flex-wrap: wrap; word-break: break-all;
-            line-height: 1.4;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.5);
+            line-height: 1.3;
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.5);
             cursor: pointer;
         }
 
         input { 
-            width: 100%; padding: 14px; font-size: 1.5rem; 
-            border: 3px solid #cbd5e1; border-radius: 14px; 
+            width: 100%; padding: 10px; font-size: 1.3rem; 
+            border: 2px solid #cbd5e1; border-radius: 10px; 
             text-transform: uppercase; text-align: center; 
-            background: #f8fafc; margin-bottom: 15px;
+            background: #f8fafc; margin-bottom: 8px; /* Menor margem */
             font-weight: 900; color: var(--primary);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
-        /* Teclado */
+        /* Dica Compacta */
+        #hintBox { font-size:0.8rem; margin-bottom:8px; color:#475569; font-weight: 700; line-height: 1.2; }
+
+        /* Teclado Compacto */
         .virtual-keyboard { 
             display: grid; 
             grid-template-columns: repeat(7, 1fr); 
-            gap: 6px; 
-            padding: 10px; background: #f1f5f9; border-radius: 18px; 
+            gap: 4px; /* Gap menor */
+            padding: 6px; background: #f1f5f9; border-radius: 12px; 
         }
 
         .key { 
             background: white; border: none;
-            padding: 14px 0; border-radius: 10px; 
-            font-weight: 900; font-size: 1.1rem;
+            padding: 10px 0; border-radius: 8px; /* Altura menor */
+            font-weight: 900; font-size: 1rem;
             color: var(--primary);
             cursor: pointer; touch-action: manipulation;
-            box-shadow: 0 4px 0 #cbd5e1;
+            box-shadow: 0 3px 0 #cbd5e1;
             transition: all 0.1s;
         }
-        .key:active { transform: translateY(3px); box-shadow: 0 1px 0 #cbd5e1; background: #f8fafc; }
+        .key:active { transform: translateY(2px); box-shadow: 0 1px 0 #cbd5e1; background: #f8fafc; }
 
-        /* Botões Especiais Profissionais */
+        /* Botões Especiais Compactos */
         .action-row {
-            display: flex; gap: 10px; margin-top: 12px;
+            display: flex; gap: 6px; margin-top: 8px;
         }
 
         .btn-special {
-            flex: 1; border: none; padding: 12px; border-radius: 12px;
-            font-weight: 800; font-size: 0.9rem; color: white;
+            flex: 1; border: none; padding: 10px; border-radius: 10px;
+            font-weight: 800; font-size: 0.8rem; color: white;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            gap: 8px; transition: all 0.2s;
+            gap: 5px; transition: all 0.2s;
             text-transform: uppercase;
         }
 
         .btn-backspace { 
             background-color: var(--warning);
-            box-shadow: 0 4px 0 #b45309;
+            box-shadow: 0 3px 0 #b45309;
         }
-        .btn-backspace:active { transform: translateY(3px); box-shadow: 0 1px 0 #b45309; }
+        .btn-backspace:active { transform: translateY(2px); box-shadow: 0 1px 0 #b45309; }
 
         .btn-clear { 
             background-color: var(--danger);
-            box-shadow: 0 4px 0 #b91c1c;
+            box-shadow: 0 3px 0 #b91c1c;
         }
-        .btn-clear:active { transform: translateY(3px); box-shadow: 0 1px 0 #b91c1c; }
+        .btn-clear:active { transform: translateY(2px); box-shadow: 0 1px 0 #b91c1c; }
 
-        /* NOVO BOTÃO DE ENVIO ESTILIZADO */
+        /* CONTAINER E BOTÃO DE ENVIO ULTRA COMPACTO */
         .btn-check-container {
-            display: flex; justify-content: center; margin-top: 15px;
+            display: flex; justify-content: center; margin-top: 10px; margin-bottom: 5px;
         }
 
         .btn-check { 
             background: var(--primary); color: white; border: none; 
-            padding: 10px 20px; border-radius: 30px; /* Mais arredondado */
-            font-weight: 900; 
-            width: auto; /* Largura automática */
-            min-width: 140px; /* Largura mínima para não ficar pequeno demais */
-            font-size: 1rem;
-            box-shadow: 0 5px 0 #0f172a; cursor: pointer;
-            text-transform: uppercase; transition: all 0.1s;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 2px;
+            width: 45px; height: 45px; /* Botão circular pequeno */
+            border-radius: 50%; /* Perfeitamente circular */
+            font-size: 1.6rem; /* Ícone grande proporcional */
+            box-shadow: 0 4px 0 #0f172a; cursor: pointer;
+            transition: all 0.1s;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0; padding-top: 3px; /* Pequeno ajuste de alinhamento do ícone */
         }
-        .btn-check:active { transform: translateY(3px); box-shadow: 0 2px 0 #0f172a; }
+        .btn-check:active { transform: translateY(2px); box-shadow: 0 1px 0 #0f172a; }
 
-        .btn-check-icon { font-size: 1.4rem; }
-        .btn-check-morse { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; opacity: 0.8; letter-spacing: 1px; }
+        .feedback-area {
+            min-height: 18px; margin-top: 5px; font-size: 0.85rem; font-weight: bold;
+        }
 
         .legend { 
-            margin-top: 15px; display: grid; grid-template-columns: repeat(4, 1fr); 
-            gap: 4px; font-size: 0.7rem; background: #f8fafc; 
-            padding: 10px; border-radius: 14px; border: 1px solid #e2e8f0;
+            margin-top: 8px; display: grid; grid-template-columns: repeat(4, 1fr); 
+            gap: 3px; font-size: 0.6rem; background: #f8fafc; 
+            padding: 6px; border-radius: 10px; border: 1px solid #e2e8f0;
         }
-        .legend div { background: white; padding: 4px; border-radius: 5px; border: 1px solid #eee; font-weight: bold; }
+        .legend div { background: white; padding: 2px; border-radius: 3px; border: 1px solid #eee; }
 
-        @media (max-width: 380px) {
-            .key { padding: 12px 0; font-size: 1rem; }
-            .btn-special { font-size: 0.75rem; padding: 10px; }
-            .btn-check { min-width: 120px; padding: 8px 15px; font-size: 0.9rem; }
-            .btn-check-icon { font-size: 1.2rem; }
+        /* Ajustes para telas muito estreitas */
+        @media (max-width: 350px) {
+            .key { font-size: 0.9rem; padding: 8px 0; }
+            .btn-special { font-size: 0.7rem; padding: 8px; }
+            h1 { font-size: 1rem; }
+            .display-morse { font-size: 1rem; min-height: 50px; }
         }
     </style>
 </head>
 <body>
 
 <div class="container" id="gameContainer">
-    <div id="levelLabel" style="font-weight:900; color:var(--accent); font-size: 0.9rem; text-transform: uppercase;">Nível 1</div>
+    <div id="levelLabel" style="font-weight:900; color:var(--accent); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 2px;">Nível 1</div>
     <h1>Expedição Morse Araruama</h1>
     
     <div id="morseDisplay" class="display-morse" onclick="playCurrentMorse(600)">...</div>
     
-    <div id="hintBox" style="font-size:0.9rem; margin-bottom:12px; color:#475569; font-weight: 700;">💡 Dica...</div>
+    <div id="hintBox">💡 Dica...</div>
     
     <input type="text" id="userInput" readonly placeholder="SUA RESPOSTA">
 
@@ -169,18 +172,16 @@
             <span>⌫</span> APAGAR
         </button>
         <button class="btn-special btn-clear" onclick="clearInput()">
-            <span>🗑️</span> LIMPAR TUDO
+            <span>🗑️</span> LIMPAR
         </button>
     </div>
 
     <div class="btn-check-container">
         <button class="btn-check" onclick="checkAnswer()">
-            <span class="btn-check-icon">📡</span>
-            <span>ENVIAR</span>
-            <span class="btn-check-morse">. - - .</span> </button>
+            <span>↵</span> </button>
     </div>
     
-    <div id="feedback" style="margin-top:12px; min-height: 20px;"></div>
+    <div class="feedback-area" id="feedback"></div>
     
     <div class="legend" id="legendTable"></div>
 </div>
@@ -195,7 +196,7 @@
     };
 
     const levels = [
-        { name: "História", situations: [{word: "SAL", hint: "Antiga riqueza de Araruama"}, {word: "FERRY", hint: "Barca da lagoa"}] },
+        { name: "História", situations: [{word: "SAL", hint: "Antiga riqueza local"}, {word: "FERRY", hint: "Barca da lagoa"}] },
         { name: "Araruama", situations: [{word: "SOL", hint: "Forte na Praia do Gavião"}, {word: "VENTO", hint: "Perfeito para o Kite"}] }
     ];
 
@@ -232,6 +233,7 @@
     }
 
     const kbd = document.getElementById('keyboard');
+    kbd.innerHTML = ""; // Limpa antes de gerar
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letra => {
         const btn = document.createElement('button');
         btn.className = 'key';
@@ -255,7 +257,7 @@
         const container = document.getElementById('gameContainer');
         container.classList.remove('success-flash');
         if (currentLvl >= levels.length) { 
-            container.innerHTML = "<h1 style='color:var(--success)'>🏆 MISSÃO CUMPRIDA!</h1><p>Você é um mestre telegrafista!</p>"; 
+            container.innerHTML = "<h1 style='color:var(--success)'>🏆 MISSÃO CUMPRIDA!</h1>"; 
             return; 
         }
         
@@ -274,18 +276,19 @@
         
         if(input === correct) {
             document.getElementById('gameContainer').classList.add('success-flash');
-            feed.innerHTML = "<b style='color:var(--success); font-size: 1.1rem;'>✅ SINAL RECEBIDO!</b>";
+            feed.innerHTML = "<span style='color:var(--success)'>✅ CORRETO!</span>";
             playCurrentMorse(950);
             currentSit++;
             if(currentSit >= levels[currentLvl].situations.length) { currentSit = 0; currentLvl++; }
             setTimeout(initGame, 3000);
         } else {
-            feed.innerHTML = "<b style='color:var(--danger)'>❌ CÓDIGO INVÁLIDO</b>";
+            feed.innerHTML = "<span style='color:var(--danger)'>❌ INVÁLIDO</span>";
             playTone(500, 150);
         }
     }
 
     const leg = document.getElementById('legendTable');
+    leg.innerHTML = ""; // Limpa antes de gerar
     Object.keys(morseAlphabet).forEach(l => { 
         leg.innerHTML += `<div>${l} ${morseAlphabet[l]}</div>`; 
     });
